@@ -1,0 +1,40 @@
+{
+  "name": "zhydhl",
+  "version": "1.0.0",
+  "description": "智慧移动护理",
+  "main": "index.js",
+  "scripts": {
+    "build-client": "webpack --config build/webpack.config.client.js",
+    "build-server": "webpack --config build/webpack.config.server.js",
+    "clear": "rimraf dist",
+    "build": "yarn run clear && yarn run build-client && yarn run build-server",
+    "start": "node server/server.js",
+    "dev": "yarn run build && yarn run start"
+  },
+  "author": "MSH",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-syntax-jsx": "^7.12.13",
+    "@babel/plugin-transform-react-display-name": "^7.12.13",
+    "@babel/plugin-transform-react-jsx": "^7.13.12",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "@babel/runtime": "^7.13.10",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "babel-preset-react-app": "^10.0.0",
+    "html-webpack-plugin": "^5.3.1",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.26.3",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
