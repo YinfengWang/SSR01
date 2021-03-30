@@ -12,8 +12,7 @@ const app = express()
 app.use('/pulic', express.static((path.join(__dirname, '../dist/'))))
 app.get('*', function (reg, res) {
     const appString = ReactSSR.renderToString(serverEntry)
-    console.log(template)
-    res.send(template.replace('<app/>', appString))
+    res.send(template.replace('<!-- App -->', appString))
 })
 
 app.listen(3333, function () {
