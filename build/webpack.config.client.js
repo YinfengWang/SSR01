@@ -1,13 +1,14 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  mode: 'development',
-  entry: path.join(__dirname, '../client/app.js'),
+  mode : 'production',
+  entry:  path.join(__dirname, '../client/app.js'),
   watch: false,
   output: {
     path: path.join(__dirname, '../dist'),
-    publicPath: '/public',
+    publicPath: '/public/',
     filename: "bundle.js",
     chunkFilename: '[name].js'
   },
@@ -23,7 +24,10 @@ const config = {
               ['@babel/preset-react']
             ],
             plugins: [
-              ["@babel/plugin-proposal-class-properties", { "loose": true }],
+              // plugin-proposal-decorators is only needed if you're using experimental decorators in TypeScript
+              // ["@babel/plugin-proposal-decorators", { legacy: true }],
+              ["@babel/plugin-proposal-class-properties", { loose: true }],
+              "react-hot-loader/babel",
             ]
           },
         },
@@ -32,12 +36,16 @@ const config = {
     ]
   },
   resolve: {
-    extensions: ['.json', '.js', '.jsx']
+    extensions: ['.json', '.js', '.jsx'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '../client/template.html')
     }),
+   // new webpack.HotModuleReplacementPlugin()
   ],
 
 };
@@ -46,6 +54,7 @@ module.exports = (env, argv) => {
 
   if (argv.mode === 'development') {
     // config.devtool = 'source-map';
+    config.entry=['react-hot-loader/patch', path.join(__dirname, '../client/app.js')],
     config.devServer = {
       contentBase: path.join(__dirname, '../dist'),
       progress: true,//进度条

@@ -1,5 +1,12 @@
-import React from 'react'
-import ReactDom from 'react-dom'
-import App from './App.jsx'
+import { hot } from 'react-hot-loader/root';
+import React from 'react';
+import ReactDom from 'react-dom';
+import App from './App.jsx';
 
-ReactDom.hydrate(<App/>,document.getElementById('root'));
+hot(App);
+const root = document.getElementById('root');
+const render = Component => {
+    ReactDom.hydrate(<Component />, root);
+}
+
+render(App);
