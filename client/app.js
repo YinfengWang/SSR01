@@ -8,5 +8,4 @@ const root = document.getElementById('root');
 const render = (Component) => {
     ReactDom.hydrate(<Component />, root);
 };
-
 render(App);
