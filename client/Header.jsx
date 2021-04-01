@@ -7,7 +7,7 @@ class Header extends React.Component {
     }
     render() {
         return (
-            <div>WWWsdsf   </div>
+            <div>EEEEEEEEEE  s  </div>
         );
     }
 }

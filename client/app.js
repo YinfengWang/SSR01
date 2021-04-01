@@ -5,8 +5,8 @@ import App from './App.jsx';
 
 hot(App);
 const root = document.getElementById('root');
-const render = Component => {
+const render = (Component) => {
     ReactDom.hydrate(<Component />, root);
-}
+};
 
 render(App);
