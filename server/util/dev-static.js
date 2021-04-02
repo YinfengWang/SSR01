@@ -12,7 +12,7 @@ const getTemplate = () => new Promise((resolve, reject) => {
         .then((res) => {
             resolve(res.data);
         })
-        ['catch'](reject);
+        .catch(reject);
 });
 let serverBundle;
 const Moudle = module.constructor;

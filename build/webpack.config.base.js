@@ -1,6 +1,5 @@
-const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
-const babelOptions = require('./babel.options'); 
+const babelOptions = require('./babel.options');
 
 module.exports = {
     mode: 'none',
@@ -12,9 +11,9 @@ module.exports = {
                     loader: 'babel-loader',
                     options: babelOptions,
                 },
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
-        ]
+        ],
     },
     resolve: {
         extensions: ['.json', '.js', '.jsx'],
@@ -26,7 +25,7 @@ module.exports = {
         new ESLintPlugin({
             fix: true,
             extensions: ['js', 'json', 'coffee'],
-            exclude: '/node_modules/'
-        })
-    ]
-}
+            exclude: '/node_modules/',
+        }),
+    ],
+};
