@@ -13,8 +13,9 @@
     "start": "node server/server.js",
     "dev": "yarn run build && yarn run start",
     "lint": "eslint --ext .js --ext .jsx client/",
+    "pre-commit": "yarn lint"
   },
-  "pre-commit":[ "yarn lint"],
+ 
   "author": "MSH",
   "license": "ISC",
   "devDependencies": {
