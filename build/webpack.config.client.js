@@ -10,8 +10,6 @@ const config = {
     mode: isDev ? 'development' : 'production',
     entry: path.join(__dirname, '../client/app.js'),
     output: {
-        path: path.join(__dirname, '../dist'),
-        publicPath: '/public/',
         filename: 'bundle.js',
         chunkFilename: '[name].js',
     },

@@ -1,8 +1,15 @@
+const path = require('path');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const babelOptions = require('./babel.options');
 
 module.exports = {
     mode: 'none',
+    output: {
+        path: path.join(__dirname, '../dist'),
+        publicPath: '/public/',
+        // clean: true,
+    },
+
     module: {
         rules: [
             {

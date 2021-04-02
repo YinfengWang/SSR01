@@ -12,8 +12,6 @@ const config = {
     },
     output: {
         filename: 'server.entry.js',
-        path: path.join(__dirname, '../dist'),
-        publicPath: '/public/',
         libraryTarget: 'commonjs2', // 使用规范， 最新模块加载方案
     // clean: true,
     },
