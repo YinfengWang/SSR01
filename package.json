@@ -12,10 +12,11 @@
     "build": "yarn  clear && yarn  build:client && yarn  build:server",
     "start": "node server/server.js",
     "dev": "yarn run build && yarn run start",
-    "lint": "eslint --ext .js --ext .jsx client/",
-    "pre-commit": "yarn lint"
+    "lint": "eslint --ext .js --ext .jsx client/"
   },
- 
+  "pre-commit": [
+    "lint"
+  ],
   "author": "MSH",
   "license": "ISC",
   "devDependencies": {
