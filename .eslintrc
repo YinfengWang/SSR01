@@ -30,6 +30,10 @@
       "configFile": "./build/babel.options.js"
     }
   },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
   /**
    * "off" 或 0 - 关闭规则
    * "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出),
@@ -678,41 +682,77 @@
     // 要求或禁止模板字符串中的嵌入表达式周围空格的使用
     "template-curly-spacing": 1,
     // 强制在 yield* 表达式中 * 周围使用空格
-    "yield-star-spacing": 2
+    "yield-star-spacing": 2,
+    //在JSX中强制布尔属性符号
+    "react/jsx-boolean-value": 2,
+    //在JSX中验证右括号位置
+    // "react/jsx-closing-bracket-location": 1,
+    //在JSX属性和表达式中加强或禁止大括号内的空格。
+    "react/jsx-curly-spacing": [
+      2,
+      {
+        "when": "never",
+        "children": true
+      }
+    ],
+    //在数组或迭代器中验证JSX具有key属性
+    "react/jsx-key": 2,
+    // 限制JSX中单行上的props的最大数量
+    "react/jsx-max-props-per-line": [
+      2,
+      {
+        "maximum": 5
+      }
+    ],
+    //防止在JSX中重复的props
+    "react/jsx-no-duplicate-props": 2,
+    //  //防止使用未包装的JSX字符串
+    // "react/jsx-no-literals": 0,
+    //在JSX中禁止未声明的变量
+    "react/jsx-no-undef": 2,
+    //为用户定义的JSX组件强制使用PascalCase
+    "react/jsx-pascal-case": 2,
+    //防止反应被错误地标记为未使用
+    "react/jsx-uses-react": 2,
+    //防止在JSX中使用的变量被错误地标记为未使用
+    "react/jsx-uses-vars": 2,
+    //防止在componentDidMount中使用setState
+    "react/no-did-mount-set-state": 2,
+    //防止在componentDidUpdate中使用setState
+    "react/no-did-update-set-state": 2,
+    //防止使用未知的DOM属性
+    "react/no-unknown-property": 2,
+    //为React组件强制执行ES5或ES6类
+    "react/prefer-es6-class": 2,
+    //防止在React组件定义中丢失props验证
+    // "react/prop-types": 1,
+    //使用JSX时防止丢失React
+    "react/react-in-jsx-scope": 2,
+    //防止没有children的组件的额外结束标签
+    "react/self-closing-comp": 2,
+    //强制无状态组件写成纯函数
+    "react/prefer-stateless-function": [
+      2,
+      {
+        "ignorePureComponents": false
+      }
+    ],
+    //禁止不必要的bool转换
+    // "no-extra-boolean-cast": 0,
+    //防止在数组中遍历中使用数组key做索引
+    // "react/no-array-index-key": 0,
+    //不使用弃用的方法
+    "react/no-deprecated": 2,
+    //在JSX属性中强制或禁止等号周围的空格
+    "react/jsx-equals-spacing": 2,
+    "react/jsx-filename-extension": [
+      2,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ]
   }
 }
-// {
-//   "parser": "@babel/eslint-parser",
-//   "extends": "standard",
-//   "rules": {
-//     "semi": [
-//       "error",
-//       "always"
-//     ],
-//     "quotes": [
-//       "error",
-//       "double"
-//     ],
-//     // "generator-star-spacing": "off",
-//     // "no-tabs": "off",
-//     "no-unused-vars": "off"
-//     // "no-console": "off",
-//     // "no-irregular-whitespace": "off",
-//     // "no-debugger": "off"
-//   }
-// }
-// module.exports = {
-//   parser: "@babel/eslint-parser",
-//   extends: "standard",
-//   parserOptions: {
-//     sourceType: "module",
-//     allowImportExportEverywhere: false,
-//     ecmaFeatures: {
-//       globalReturn: false,
-//     },
-//     requireConfigFile:true,
-//     babelOptions: {
-//       configFile: "./build/babel.options.js",
-//     },
-//   },
-// };

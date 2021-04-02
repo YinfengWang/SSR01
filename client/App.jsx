@@ -1,13 +1,12 @@
-import React,{Fragment} from 'react';
-// import { hot } from 'react-hot-loader/root';
-import Header from './Header';
+import React1 from 'react';
+import Header from './Header.jsx';
 class App extends React.Component {
-    render() {
-        return (
-           <div>this is app   !
-                   <Header></Header>
-            </div> 
-        );
-    }
-} 
-export default App; 
+  render() {
+    return (
+      <div key='q'>this is app   !
+        <Header key='header'></Header>
+      </div>
+    );
+  }
+}
+export default App;
