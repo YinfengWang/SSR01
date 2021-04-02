@@ -7,47 +7,46 @@ const proxy = require('http-proxy-middleware');
 
 const webpackServerConfig = require('../../build/webpack.config.server');
 
-const getTemplate = () => {
-  return new Promise((resolve, reject) => {
+const getTemplate = () => new Promise((resolve, reject) => {
     axios.get('http://127.0.0.1:8888/public/index.html')
-      .then((res) => {
-        resolve(res.data);
-      }).catch(reject)
-  });
-}
+        .then((res) => {
+            resolve(res.data);
+        })
+        ['catch'](reject);
+});
 let serverBundle;
 const Moudle = module.constructor;
-const mfs = new MemoryFs;
+const mfs = new MemoryFs();
 const webpackServerCompiler = webpack(webpackServerConfig);
 webpackServerCompiler.outputFileSystem = mfs;
 webpackServerCompiler.watch({}, (err, stats) => {
-  if (err) throw err;
-  stats = stats.toJson()
-  stats.errors.forEach(err => {
-    console.error(err);
-  });
-  stats.warnings.forEach(err => {
-    console.warn(err);
-  });
+    if (err) {throw err;}
+    stats = stats.toJson();
+    stats.errors.forEach((err) => {
+        console.error(err);
+    });
+    stats.warnings.forEach((err) => {
+        console.warn(err);
+    });
 
-  const bundlePath = path.join(
-    webpackServerConfig.output.path,
-    webpackServerConfig.output.filename
-  )
+    const bundlePath = path.join(
+        webpackServerConfig.output.path,
+        webpackServerConfig.output.filename
+    );
 
-  const bundleJs = mfs.readFileSync(bundlePath, 'utf-8');
+    const bundleJs = mfs.readFileSync(bundlePath, 'utf-8');
 
-  const m = new Moudle();
-  m._compile(bundleJs, webpackServerConfig.output.filename);
-  serverBundle = m.exports.default;
+    const m = new Moudle();
+    m._compile(bundleJs, webpackServerConfig.output.filename);
+    serverBundle = m.exports['default'];
 });
 module.exports = (app) => {
-  app.use('/public', proxy.createProxyMiddleware({ target: 'http://127.0.0.1:8888', changeOrigin: true }));
-  console.log(serverBundle);
-  app.get('*', (req, res) => {
-    getTemplate().then(template => {
-      const content = ReactDomServer.renderToString(serverBundle);
-      res.send(template.replace('<!-- App -->', content))
+    app.use('/public', proxy.createProxyMiddleware({ target: 'http://127.0.0.1:8888', changeOrigin: true }));
+    console.log(serverBundle);
+    app.get('*', (req, res) => {
+        getTemplate().then((template) => {
+            const content = ReactDomServer.renderToString(serverBundle);
+            res.send(template.replace('<!-- App -->', content));
+        });
     });
-  })
-}
+};

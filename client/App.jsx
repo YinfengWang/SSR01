@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './Header.jsx';
 class App extends React.Component {
-  render() {
+  render () {
     return (
       <div key='q'>this is app   !
         <Header key='header'></Header>
