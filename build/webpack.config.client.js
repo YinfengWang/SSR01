@@ -28,7 +28,7 @@ if (isDev) {
     config.entry = ['react-hot-loader/patch', path.join(__dirname, '../client/app.js')];
 
     config.devServer = {
-        contentBase: path.join(__dirname, '../dist'),
+        contentBase: path.join(__dirname, '../dist/'),
         progress: true, // 进度条
         historyApiFallback: true,
         inline: true,

@@ -1,3 +1,3 @@
 import React from 'react';
-import App from './App.jsx';
+import App from './pages/App';
 export default <App />;

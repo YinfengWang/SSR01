@@ -8,10 +8,10 @@
     "lint": "eslint --ext .js --ext .jsx build/  client/  server/",
     "build:client": "webpack --config build/webpack.config.client.js",
     "build:server": "webpack --config build/webpack.config.server.js",
-    "build":"yarn lint && yarn build:client && yarn  build:server",
+    "build": "yarn lint && yarn build:client && yarn  build:server",
     "dev:client": " cross-env NODE_ENV=development  webpack serve  --config build/webpack.config.client.js",
     "dev:server": "nodemon   server/server.js",
-    "dev":" npm-run-all --parallel build  dev:*"
+    "dev": " npm-run-all --parallel    dev:*"
   },
   "pre-commit": [
     "lint"
@@ -69,6 +69,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "webpack-merge": "^5.7.3"
   }
 }

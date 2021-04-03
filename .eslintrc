@@ -728,7 +728,7 @@
       }
     ],
     //在数组或迭代器中验证JSX具有key属性
-    "react/jsx-key": 2,
+    "react/jsx-key": 0,
     // 限制JSX中单行上的props的最大数量
     "react/jsx-max-props-per-line": [
       2,
