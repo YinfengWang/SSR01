@@ -5,6 +5,7 @@ class TopicDetail extends Component {
         // do sometimg
     }
     render () {
+        console.log('---------------');
         return (
             <div>this is topic detail !</div>
         );

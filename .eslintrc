@@ -241,7 +241,7 @@
     "no-loop-func": 1,
     // 禁用魔术数字(3.14什么的用常量代替)
     "no-magic-numbers": [
-      1,
+      0,
       {
         "ignore": [
           0,
@@ -775,6 +775,8 @@
     // "react/no-array-index-key": 0,
     //不使用弃用的方法
     "react/no-deprecated": 2,
+    "react/display-name": 0,
+
     //在JSX属性中强制或禁止等号周围的空格
     "react/jsx-equals-spacing": 2,
     "react/jsx-filename-extension": [

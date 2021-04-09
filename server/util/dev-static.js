@@ -4,7 +4,6 @@ const ReactDomServer = require('react-dom/server');
 const MemoryFs = require('memory-fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
-const favicon = require('serve-favicon');
 
 const webpackServerConfig = require('../../build/webpack.config.server');
 
@@ -15,7 +14,7 @@ const getTemplate = () => new Promise((resolve, reject) => {
         })
         .catch(reject);
 });
-let serverBundle;
+let serverBundle, createStoreMap;
 const Moudle = module.constructor;
 const mfs = new MemoryFs();
 const webpackServerCompiler = webpack(webpackServerConfig);
@@ -39,14 +38,19 @@ webpackServerCompiler.watch({}, (err, stats) => {
 
     const m = new Moudle();
     m._compile(bundleJs, webpackServerConfig.output.filename);
-    serverBundle = m.exports['default'];
+    serverBundle = m.exports.default;
+    createStoreMap = m.exports.createStoreMap;
 });
 module.exports = (app) => {
-    app.use(favicon(path.join(__dirname, '../../favicon.ico')));
+
     app.use('/public', proxy.createProxyMiddleware({ target: 'http://127.0.0.1:8888', changeOrigin: true }));
     app.get('*', (req, res) => {
         getTemplate().then((template) => {
-            const content = ReactDomServer.renderToString(serverBundle);
+            const routerContext = {};
+
+            const app = serverBundle(createStoreMap(), routerContext, req.url);
+            const content = ReactDomServer.renderToString(app);
+
             res.send(template.replace('<!-- App -->', content));
         });
     });

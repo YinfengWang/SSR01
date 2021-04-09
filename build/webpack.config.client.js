@@ -39,6 +39,10 @@ if (isDev) {
         overlay: {
             errors: true,
         },
+        proxy: {
+            '/api': 'http://localhost:3333',
+        },
+
     };
 }
 
