@@ -1,7 +1,6 @@
 import React from 'react';
 import { StaticRouter } from 'react-router';
 import { Provider, useStaticRendering } from 'mobx-react';
-import Routes from './config/routes';
 import App from './pages/App';
 import { createStoreMap } from './store/index';
 
@@ -14,7 +13,6 @@ export default (stores, routerContext, url) => {
         <Provider {...stores}>
             <StaticRouter location={url} context={routerContext} >
                 <App />
-                <Routes />
             </StaticRouter>
         </Provider>
 

@@ -2,20 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer} from 'mobx-react';
 
-// const onChange = (e, appStore) => {
-//     appStore.changeName(e.target.value) ;
-// };
-// 函数写法
-// const TopicList = ({appStore}) => (
-//     <div>
-//         {
-//             console.log(appStore)
-//         }
-//         <div>this is list </div>
-//         <input type='text' onChange={(e) => {onChange(e, appStore);}} />
-//         <div>{appStore.msg}</div>
-//     </div>
-// );
 // 类的写法
 @inject('appStore') @observer
 class TopicList extends React.Component {
