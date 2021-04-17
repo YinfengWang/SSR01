@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\85319\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add mobx-react@5.4.4 -S
+  C:\Program Files\nodejs\node.exe C:\Users\85319\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add react-async-bootstrapper -S
 
 PATH: 
   C:\Users\85319\Downloads\WINDOWS.X64_193000_db_home\bin;C:\Program Files\Microsoft MPI\Bin\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Git\cmd;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Azure Data Studio\bin;C:\Program Files\nodejs\;C:\Program Files\TortoiseSVN\bin;C:\Program Files\CMake\bin;C:\Program Files\Git LFS;C:\Program Files\dotnet\;C:\Users\85319\AppData\Local\Microsoft\WindowsApps;C:\Users\85319\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\85319\AppData\Roaming\npm;C:\Users\85319\.dotnet\tools
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, lstat 'D:\Learning\React\SSR01\node_modules\mobx-react\dist'
+  Error: EPERM: operation not permitted, lstat 'D:\Learning\React\SSR01\node_modules\@hot-loader\react-dom\node_modules'
 
 npm manifest: 
   {
@@ -90,6 +90,7 @@ npm manifest:
       "express": "^4.17.1",
       "express-session": "^1.17.1",
       "mobx": "^6.1.8",
+      "mobx-react": "5.4.4",
       "mobx-react-lite": "^3.2.0",
       "prop-types": "^15.7.2",
       "query-string": "^7.0.0",
@@ -3822,7 +3823,7 @@ Lockfile:
       tiny-warning "^1.0.0"
       value-equal "^1.0.1"
   
-  hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0:
+  hoist-non-react-statics@^3.0.0, hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0:
     version "3.3.2"
     resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"
     integrity sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==
@@ -4871,12 +4872,13 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mobx-react-lite/-/mobx-react-lite-3.2.0.tgz#331d7365a6b053378dfe9c087315b4e41c5df69f"
     integrity sha512-q5+UHIqYCOpBoFm/PElDuOhbcatvTllgRp3M1s+Hp5j0Z6XNgDbgqxawJ0ZAUEyKM8X1zs70PCuhAIzX1f4Q/g==
   
-  mobx-react@^7.1.0:
-    version "7.1.0"
-    resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-7.1.0.tgz#d947cada3cfad294b4b6f692e969c242b9c16eaf"
-    integrity sha512-DxvA6VXmnZ+N9f/UTtolWtdRnAAQY2iHWTSPLktfpj8NKlXUe4dabBAjuXrBcZUM8GjLWnxD1ZEjssXq1M0RAw==
+  mobx-react@5.4.4:
+    version "5.4.4"
+    resolved "https://registry.yarnpkg.com/mobx-react/-/mobx-react-5.4.4.tgz#b3de9c6eabcd0ed8a40036888cb0221ab9568b80"
+    integrity sha512-2mTzpyEjVB/RGk2i6KbcmP4HWcAUFox5ZRCrGvSyz49w20I4C4qql63grPpYrS9E9GKwgydBHQlA4y665LuRCQ==
     dependencies:
-      mobx-react-lite "^3.2.0"
+      hoist-non-react-statics "^3.0.0"
+      react-lifecycles-compat "^3.0.2"
   
   mobx@^6.1.8:
     version "6.2.0"
@@ -5673,6 +5675,13 @@ Lockfile:
       minimist "^1.2.0"
       strip-json-comments "~2.0.1"
   
+  react-async-bootstrapper2@^2.1.2:
+    version "2.1.2"
+    resolved "https://registry.yarnpkg.com/react-async-bootstrapper2/-/react-async-bootstrapper2-2.1.2.tgz#99c731528ac23307bd4673d57fb52d7aa1110736"
+    integrity sha512-D8ySj5mEyAC6cMKvd5qF+JhCIOtIrH7Yl/0cK7Q9IqTgHt2445igfjzhZUjzlGNWN9Hq8dsbeG3L+YasJNJ22Q==
+    dependencies:
+      react-tree-walker "^4.2.0"
+  
   react-dom@^17.0.0:
     version "17.0.2"
     resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-17.0.2.tgz#ecffb6845e3ad8dbfcdc498f0d0a939736502c23"
@@ -5701,7 +5710,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz"
     integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
   
-  react-lifecycles-compat@^3.0.4:
+  react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
     version "3.0.4"
     resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
     integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
@@ -5734,6 +5743,11 @@ Lockfile:
       react-is "^16.6.0"
       tiny-invariant "^1.0.2"
       tiny-warning "^1.0.0"
+  
+  react-tree-walker@^4.2.0:
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/react-tree-walker/-/react-tree-walker-4.3.0.tgz#b7cae498cebb490281e9e99a01bdb9c6b4926cd3"
+    integrity sha512-sO/pk+JQ2mbtPGdlKbeeo2aT4qXl5nPkGVO96yYQOdX9jYvRNXSnMWIydniLVEoiPvUbpfoc057blGbAQgMBRg==
   
   react@^17.0.0:
     version "17.0.2"

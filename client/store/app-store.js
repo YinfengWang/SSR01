@@ -16,5 +16,14 @@ export default class AppStore {
    changeName (name) {
        this.name = name;
    }
+   initData (appStore) {
+       return new Promise(
+           function (resolve, reject) {
+               appStore.name = 'EEE';
+               appStore.count = 22;
+               resolve(true);
+           }
+       );
 
+   }
 }

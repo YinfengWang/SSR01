@@ -22,5 +22,6 @@ TopicList.propTypes = {
     appStore: PropTypes.object.isRequired, // correct
 };
 
+TopicList.loadData = (stores) => stores.appStore.initData(stores.appStore);
 
 export default TopicList;

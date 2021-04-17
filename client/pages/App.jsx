@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Routes from '../config/routes';
-
+import { renderRoutes } from 'react-router-config';
+import {routes} from '../config/routes';
 
 const App = () => (
     <div>
@@ -9,7 +9,7 @@ const App = () => (
         <br />
         <Link to='/detail'>详情页</Link>
         <br />
-        <Routes/>
+        {renderRoutes(routes())}
     </div>
 );
 export default App;

@@ -24,7 +24,7 @@
       // 启用 JSX
       "jsx": true
     },
-    "allowImportExportEverywhere": false,
+    "allowImportExportEverywhere": true,
     "requireConfigFile": true,
     "babelOptions": {
       "configFile": "./build/babel.options.js"
