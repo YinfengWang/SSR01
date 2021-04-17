@@ -1,28 +1,20 @@
 import { action, computed, makeAutoObservable, observable } from 'mobx';
 
 
-export default class AppState {
-  count = 0
-  name = 'WYF';
+export default class AppStore {
+  @observable count = 0
+  @observable name = 'WYF';
   constructor () {
-      makeAutoObservable(this, {
-          count: observable,
-          name: observable,
-          msg: computed,
-          add: action,
-          changeName: action,
-      });
+      makeAutoObservable(this);
   }
-  get msg () {
+  @computed get msg () {
       return `${this.name} say count is ${this.count} !`;
   }
-  add () {
+  @action add () {
       this.count++;
   }
-  changeName (name) {
+  @action changeName (name) {
       this.name = name;
   }
 
 }
-
-

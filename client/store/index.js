@@ -1,10 +1,11 @@
-import React from 'react';
 import AppStoreClass from './app-store';
 
+export const AppStore = AppStoreClass;
 
-const appStore = new AppStoreClass();
-export {appStore};
+export default {
+    AppStore,
+};
+
 export const createStoreMap = () => ({
-    appStore: new AppStoreClass(),
+    appStore: new AppStore(),
 });
-

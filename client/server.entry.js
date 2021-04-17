@@ -1,16 +1,17 @@
 import React from 'react';
-import {StaticRouter} from 'react-router';
-import {Provider, enableStaticRendering} from 'mobx-react';
+import { StaticRouter } from 'react-router';
+import { Provider, useStaticRendering } from 'mobx-react';
 import Routes from './config/routes';
 import App from './pages/App';
-import {createStoreMap} from './store/index';
+import { createStoreMap } from './store/index';
 
+// eslint-disable-next-line react-hooks/rules-of-hooks
+useStaticRendering(true);
 
 export default (stores, routerContext, url) => {
-    enableStaticRendering(true);
     console.log(stores);
     return (
-        <Provider stores={stores}>
+        <Provider {...stores}>
             <StaticRouter location={url} context={routerContext} >
                 <App />
                 <Routes />
@@ -32,5 +33,5 @@ export default (stores, routerContext, url) => {
 //   </StaticRouter>
 // );
 // https://mobx-react.js.org/recipes-context  參照
-export {createStoreMap};
+export { createStoreMap };
 

@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import {Provider} from 'mobx-react';
 import App from './pages/App';
-import AppStore from '../client/store/app-store';
+import {createStoreMap} from '../client/store/';
 import Routes from './config/routes';
 
 
@@ -14,9 +14,10 @@ if (isDev) {hot(App);}
 
 const root = document.getElementById('root');
 const render = (Component) => {
+    const stores = createStoreMap();
     ReactDom.hydrate(
         <div>
-            <Provider appStore={new AppStore()}>
+            <Provider {...stores}>
                 <BrowserRouter >
                     <Component />
                     <Routes />
