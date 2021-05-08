@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>SSR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div id='root'><%%- appString  %></div>
+    <script>
+      window._INITIAL_STATE_ =<%%- initialVlaue %>
+    </script>
+</body>
+
+</html>

@@ -10,9 +10,8 @@ export const createStoreMap = () => ({
     appStore: new AppStore(),
 });
 
-export const createClientStoreMap = () =>
-    // const dafaultState = window.context.state;
+export const createClientStoreMap = (initalState) =>
     ({
-        appStore: new AppStore(),
+        appStore: new AppStore(initalState),
     })
 ;

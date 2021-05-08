@@ -4,7 +4,9 @@ import { makeAutoObservable } from 'mobx';
 export default class AppStore {
   count = 0
    name = 'WYF';
-   constructor () {
+   constructor ({count, name} = {count: 0, name: 'WYF'}) {
+       this.count = count;
+       this.name = name;
        makeAutoObservable(this);
    }
    get msg () {
@@ -25,5 +27,11 @@ export default class AppStore {
            }
        );
 
+   }
+   toJson () {
+       return {
+           name: this.name,
+           count: this.count,
+       };
    }
 }

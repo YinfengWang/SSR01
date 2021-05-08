@@ -5,11 +5,12 @@ const MemoryFs = require('memory-fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
 const { matchRoutes } = require('react-router-config');
-
+const ejs = require('ejs');
+const serialize = require('serialize-javascript');
 const webpackServerConfig = require('../../build/webpack.config.server');
 
 const getTemplate = () => new Promise((resolve, reject) => {
-    axios.get('http://127.0.0.1:8888/public/index.html')
+    axios.get('http://127.0.0.1:8888/public/server.ejs')
         .then((res) => {
             resolve(res.data);
         })
@@ -43,6 +44,13 @@ webpackServerCompiler.watch({}, (err, stats) => {
     createStoreMap = m.exports.createStoreMap;
     routes = m.exports.routes;
 });
+
+const getStoreState = (stores) => Object.keys(stores).reduce((result, storeName) => {
+    const aa = storeName;
+    return result[storeName] = stores[storeName].toJson();
+}, {}
+);
+
 module.exports = (app) => {
 
     app.use('/public', proxy.createProxyMiddleware({ target: 'http://127.0.0.1:8888', changeOrigin: true }));
@@ -67,6 +75,7 @@ module.exports = (app) => {
                 const routerContext = {};
                 console.log(stores.appStore.name);
                 const app = serverBundle(stores, routerContext, req.url);
+                const states = getStoreState(stores);
                 const content = ReactDomServer.renderToString(app);
                 // 处理路由跳转
                 if (routerContext.url) {
@@ -74,7 +83,12 @@ module.exports = (app) => {
                     res.end();
                     return;
                 }
-                res.send(template.replace('<!-- App -->', content));
+                const html = ejs.render(template, {
+                    appString: content,
+                    initialVlaue: serialize(states),
+                });
+                res.send(html);
+                // res.send(template.replace('<!-- App -->', content));
             });
         });
 

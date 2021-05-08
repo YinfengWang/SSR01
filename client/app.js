@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'mobx-react';
 import App from './pages/App';
-import { createStoreMap } from '../client/store/';
+import { createClientStoreMap } from '../client/store/';
 
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -13,7 +13,8 @@ if (isDev) {hot(App);}
 
 const root = document.getElementById('root');
 const render = (Component) => {
-    const stores = createStoreMap();
+    const initalState = window._INITIAL_STATE_ || {};
+    const stores = createClientStoreMap(initalState);
     ReactDom.hydrate(
         <BrowserRouter >
             <Provider {...stores}>
