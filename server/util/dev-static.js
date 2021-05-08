@@ -7,6 +7,7 @@ const proxy = require('http-proxy-middleware');
 const { matchRoutes } = require('react-router-config');
 const ejs = require('ejs');
 const serialize = require('serialize-javascript');
+const Helmet = require('react-helmet').default;
 const webpackServerConfig = require('../../build/webpack.config.server');
 
 const getTemplate = () => new Promise((resolve, reject) => {
@@ -16,6 +17,21 @@ const getTemplate = () => new Promise((resolve, reject) => {
         })
         .catch(reject);
 });
+
+const NativeModule = require('module');
+const vm = require('vm');
+const getModuleFromString = (bundle, filename) => {
+    const m = { exports: {} };
+    const wrapper = NativeModule.wrap(bundle);
+    const script = new vm.Script(wrapper, {
+        filename: filename,
+        displayErrors: true,
+    });
+    const result = script.runInThisContext();
+    result.call(m.exports, m.exports, require, m);
+    return m;
+};
+
 let serverBundle, createStoreMap, routes;
 const Moudle = module.constructor;
 const mfs = new MemoryFs();
@@ -38,17 +54,16 @@ webpackServerCompiler.watch({}, (err, stats) => {
 
     const bundleJs = mfs.readFileSync(bundlePath, 'utf-8');
 
-    const m = new Moudle();
-    m._compile(bundleJs, webpackServerConfig.output.filename);
+    // const m = new Moudle();
+    // m._compile(bundleJs, webpackServerConfig.output.filename);
+    const m = getModuleFromString(bundleJs, webpackServerConfig.output.filename);
+
     serverBundle = m.exports.default;
     createStoreMap = m.exports.createStoreMap;
     routes = m.exports.routes;
 });
 
-const getStoreState = (stores) => Object.keys(stores).reduce((result, storeName) => {
-    const aa = storeName;
-    return result[storeName] = stores[storeName].toJson();
-}, {}
+const getStoreState = (stores) => Object.keys(stores).reduce((result, storeName) => result[storeName] = stores[storeName].toJson(), {}
 );
 
 module.exports = (app) => {
@@ -73,7 +88,6 @@ module.exports = (app) => {
         Promise.all(promises).then((data) => {
             getTemplate().then((template) => {
                 const routerContext = {};
-                console.log(stores.appStore.name);
                 const app = serverBundle(stores, routerContext, req.url);
                 const states = getStoreState(stores);
                 const content = ReactDomServer.renderToString(app);
@@ -83,9 +97,14 @@ module.exports = (app) => {
                     res.end();
                     return;
                 }
+                const helmet = Helmet.renderStatic();// 用法欠缺
                 const html = ejs.render(template, {
                     appString: content,
                     initialVlaue: serialize(states),
+                    meta: helmet.meta.toString(),
+                    title: helmet.title.toString(),
+                    style: helmet.style.toString(),
+                    link: helmet.link.toString(),
                 });
                 res.send(html);
                 // res.send(template.replace('<!-- App -->', content));
