@@ -2,6 +2,7 @@ const axios = require('axios');
 const queryString = require('query-string');
 const baseUrl = 'https://cnodejs.org/api/v1';
 
+
 module.exports = function (req, res, next) {
     const path = req.path;
     const user = req.session.user || {};
@@ -35,11 +36,20 @@ module.exports = function (req, res, next) {
             }
         })
         .catch((err) => {
-            if (err.response) {
+            // 测试创建话题返回接口
+            if (path === '/topics') {
+                res.status(200).send({
+                    success: true,
+                    data: {
+                        success: true,
+                        // eslint-disable-next-line camelcase
+                        topic_id: '134242423432',
+                    }});
+            } else if (err.response) {
                 res.status(500).send(err.response.data);
             } else {
                 res.status(500).send({
-                    succcess: false,
+                    success: false,
                     msg: '未知错误',
                 });
             }

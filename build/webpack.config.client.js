@@ -30,7 +30,7 @@ const config = {
 if (isDev) {
     // config.devtool = 'source-map';
     config.entry = ['react-hot-loader/patch', path.join(__dirname, '../client/app.js')];
-
+    config.devtool = 'cheap-module-source-map';
     config.devServer = {
         contentBase: path.join(__dirname, '../dist/'),
         progress: true, // 进度条

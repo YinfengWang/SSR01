@@ -1,4 +1,5 @@
 const { merge } = require('webpack-merge');
+const webpack = require('webpack');
 const baseConfig = require('./webpack.config.base');
 const path = require('path');
 const { observe } = require('mobx');
@@ -18,6 +19,11 @@ const config = {
         libraryTarget: 'commonjs2', // 使用规范， 最新模块加载方案
     // clean: true,
     },
+    // plugins: [
+    //     new webpack.DefinePlugin({
+    //         'process.env.API_BASE': '"http://127.0.0.1:8888"',
+    //     }),
+    // ],
 
 };
 module.exports = merge(baseConfig, config);

@@ -6,8 +6,17 @@ import { Provider } from 'mobx-react';
 import App from './pages/App';
 import { createClientStoreMap } from '../client/store/';
 
+import {MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { pink, lightBlue } from '@material-ui/core/colors';
 
 const isDev = process.env.NODE_ENV === 'development';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: lightBlue,
+        secondary: pink,
+    },
+});
 
 if (isDev) {hot(App);}
 
@@ -18,7 +27,9 @@ const render = (Component) => {
     ReactDom.hydrate(
         <BrowserRouter >
             <Provider {...stores}>
-                <Component />
+                <MuiThemeProvider theme={theme}>
+                    <Component />
+                </MuiThemeProvider>
             </Provider>
         </BrowserRouter>
         ,

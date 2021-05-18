@@ -1,4 +1,5 @@
 import AppStoreClass from './app-store';
+import TopicStoreClass from './topic.store';
 
 export const AppStore = AppStoreClass;
 
@@ -13,5 +14,7 @@ export const createStoreMap = () => ({
 export const createClientStoreMap = (initalState) =>
     ({
         appStore: new AppStore(initalState),
+        topicStore: new TopicStoreClass(),
+
     })
 ;

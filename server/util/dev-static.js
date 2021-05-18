@@ -1,14 +1,11 @@
 const axios = require('axios');
 const webpack = require('webpack');
-const ReactDomServer = require('react-dom/server');
 const MemoryFs = require('memory-fs');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
-const { matchRoutes } = require('react-router-config');
-const ejs = require('ejs');
-const serialize = require('serialize-javascript');
-const Helmet = require('react-helmet').default;
 const webpackServerConfig = require('../../build/webpack.config.server');
+
+const serverRender = require('./server.render');
 
 const getTemplate = () => new Promise((resolve, reject) => {
     axios.get('http://127.0.0.1:8888/public/server.ejs')
@@ -32,8 +29,7 @@ const getModuleFromString = (bundle, filename) => {
     return m;
 };
 
-let serverBundle, createStoreMap, routes;
-const Moudle = module.constructor;
+let serverBundle;
 const mfs = new MemoryFs();
 const webpackServerCompiler = webpack(webpackServerConfig);
 webpackServerCompiler.outputFileSystem = mfs;
@@ -58,58 +54,19 @@ webpackServerCompiler.watch({}, (err, stats) => {
     // m._compile(bundleJs, webpackServerConfig.output.filename);
     const m = getModuleFromString(bundleJs, webpackServerConfig.output.filename);
 
-    serverBundle = m.exports.default;
-    createStoreMap = m.exports.createStoreMap;
-    routes = m.exports.routes;
+    serverBundle = m.exports;
 });
 
-const getStoreState = (stores) => Object.keys(stores).reduce((result, storeName) => result[storeName] = stores[storeName].toJson(), {}
-);
 
 module.exports = (app) => {
 
     app.use('/public', proxy.createProxyMiddleware({ target: 'http://127.0.0.1:8888', changeOrigin: true }));
-    app.get('*', (req, res) => {
-
-        const stores = createStoreMap();
-
-        const matchedRoutes = matchRoutes(routes(), req.path);
-        const promises = [];
-
-        matchedRoutes.forEach((item) => {
-            if (item.route.loadData) {
-                let promise = new Promise((resolve, reject) => {
-                    item.route.loadData(stores).then(resolve)
-                        .catch(resolve);
-                });
-                promises.push(promise);
-            }
-        });
-        Promise.all(promises).then((data) => {
-            getTemplate().then((template) => {
-                const routerContext = {};
-                const app = serverBundle(stores, routerContext, req.url);
-                const states = getStoreState(stores);
-                const content = ReactDomServer.renderToString(app);
-                // 处理路由跳转
-                if (routerContext.url) {
-                    res.status(302).setHeader('location', routerContext.url);
-                    res.end();
-                    return;
-                }
-                const helmet = Helmet.renderStatic();// 用法欠缺
-                const html = ejs.render(template, {
-                    appString: content,
-                    initialVlaue: serialize(states),
-                    meta: helmet.meta.toString(),
-                    title: helmet.title.toString(),
-                    style: helmet.style.toString(),
-                    link: helmet.link.toString(),
-                });
-                res.send(html);
-                // res.send(template.replace('<!-- App -->', content));
-            });
-        });
-
+    app.get('*', (req, res, next) => {
+        if (!serverBundle) {
+            return res.send('Waiting for complie,refresh later');
+        }
+        getTemplate().then((template) => serverRender(serverBundle, template, req, res))
+            .catch(next);
     });
+
 };
