@@ -66,9 +66,7 @@ class TopicStore {
           get('/topics', { mdrender: false, tab })
               .then((resp) => {
                   if (resp.success) {
-                      resp.data.forEach((topic) => {
-                          this.addTopic(topic);
-                      });
+                      this.topics = resp.data.map((topic) => new Topic(createTopic(topic)));
                       this.syncing = false;
                       resolve();
                   } else {

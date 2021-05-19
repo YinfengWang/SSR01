@@ -67,7 +67,7 @@ class TopicList extends React.Component {
                   }
               </Tabs>
               {
-                  createTopics.length > 0 && (
+                  (createTopics && createTopics.length > 0) && (
                       <List style={{backgroundColor: 'lightblue'}}>
                           {
                               createTopics.map((topic, index) => (

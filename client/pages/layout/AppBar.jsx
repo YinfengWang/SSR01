@@ -35,7 +35,9 @@ class MainAppBar extends Component {
       this.props.history.push('/list?tab=all');
   }
   createButtonClick = () => {
-      if (this.props.appStore.user.isLogin) {this.props.history.push('/createTopic');} else {this.props.history.push('/user/login');}
+      debugger;
+      // if (this.props.appStore.user.isLogin) {this.props.history.push('/createTopic');} else {this.props.history.push('/user/login');}
+      this.props.history.push('/createTopic');
   }
   loginButtonClick = () => {
       if (this.props.appStore.user.isLogin) {this.props.history.push('/user/info');} else {this.props.history.push('/user/login');}

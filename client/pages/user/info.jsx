@@ -39,12 +39,8 @@ class UserInfo extends Component {
         };
     }
     componentDidMount () {
-        if (!this.props.user.isLogin) {
-            this.props.history.replace('/user/login');
-        } else {
-            this.props.appStore.getUserDetail();
-            this.props.appStore.getUserCollection();
-        }
+        this.props.appStore.getUserDetail();
+        this.props.appStore.getUserCollection();
     }
     handleOnClick =(e, id) => {
         debugger;
